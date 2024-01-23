@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Spawnerscript : MonoBehaviour
 {
-    public GameObject SpawnObject;
+    public GameObject[] SpawnObjects;
     float PositionY;
-
+    public List<GameObject> SpawnedObjects = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnObjects", 1, 1);
+        SpawnedObjects.Clear();
+        InvokeRepeating("SpawningObjects", 1, 1);
     }
 
     // Update is called once per frame
@@ -20,11 +21,12 @@ public class Spawnerscript : MonoBehaviour
 
 
     }
-
-    void SpawnObjects()
+    int RandomBetweenObjects;
+    void SpawningObjects()
     {
         PositionY = Random.Range(4, -4f);
+        RandomBetweenObjects = Random.Range(0, SpawnObjects.Length);
         this.transform.position = new Vector3(transform.position.x, PositionY, transform.position.z);
-        Instantiate(SpawnObject, transform.position, transform.rotation);
+        SpawnedObjects.Add(Instantiate(SpawnObjects[RandomBetweenObjects], transform.position, transform.rotation));
     }
 }

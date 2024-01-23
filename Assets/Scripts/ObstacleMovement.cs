@@ -18,6 +18,8 @@ public class ObstacleMovement : MonoBehaviour
         if (transform.position.x < -0.5f)
         {
             Destroy(this.gameObject);
+            GameManager.instance.UpdateScore();
+            GameManager.instance.Spawnerscript.SpawnedObjects.Remove(gameObject);
         }
     }
 }
